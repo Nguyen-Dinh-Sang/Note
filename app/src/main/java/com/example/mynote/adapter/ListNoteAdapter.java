@@ -111,7 +111,7 @@ public class ListNoteAdapter extends RecyclerView.Adapter<ListNoteAdapter.ViewHo
                 @Override
                 public boolean onLongClick(View v) {
                     linearLayoutMenuOption.setVisibility(View.VISIBLE);
-                    new CountDownTimer(4000, 1000) {
+                    new CountDownTimer(3000, 1000) {
 
                         public void onTick(long millisUntilFinished) {
 
@@ -121,7 +121,7 @@ public class ListNoteAdapter extends RecyclerView.Adapter<ListNoteAdapter.ViewHo
                             linearLayoutMenuOption.setVisibility(View.GONE);
                         }
                     }.start();
-                    return false;
+                    return true;
                 }
             });
 
