@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="floatingActionButtonMargin">24dp</dimen>
+    <dimen name="floatingActionButtonElevation">9dp</dimen>
+    <dimen name="dp5">7dp</dimen>
+    <dimen name="dp7">10dp</dimen>
+    <dimen name="dp8">12dp</dimen>
+    <dimen name="dp10">15dp</dimen>
+    <dimen name="dp15">22dp</dimen>
+    <dimen name="dp18">27dp</dimen>
+    <dimen name="dp25">37dp</dimen>
+    <dimen name="dp30">45dp</dimen>
+    <dimen name="dp110">165dp</dimen>
+    <dimen name="dp200">300dp</dimen>
+</resources>
