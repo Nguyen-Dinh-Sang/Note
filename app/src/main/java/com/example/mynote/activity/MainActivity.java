@@ -98,6 +98,7 @@ public class MainActivity extends AppCompatActivity{
                     NoteItem noteItem = (NoteItem) data.getSerializableExtra("create");
                     noteItemArrayList.add(noteItem);
                     listNoteAdapter.notifyDataSetChanged();
+                    listNoteAdapter.onDataChanged();
                     dataUtils.saveData(noteItemArrayList, this);
                 }
                 break;

@@ -1,7 +1,9 @@
 package com.example.mynote.adapter;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.CountDownTimer;
 import android.view.LayoutInflater;
@@ -32,9 +34,14 @@ public class ListNoteAdapter extends RecyclerView.Adapter<ListNoteAdapter.ViewHo
     public ListNoteAdapter(Context context, ArrayList<NoteItem> noteItemArrayList) {
         this.context = context;
         this.noteItemArrayList = noteItemArrayList;
-        noteItemArrayListFull = new ArrayList<>(noteItemArrayList);
+        noteItemArrayListFull = new ArrayList<>();
+        noteItemArrayListFull.addAll(noteItemArrayList);
     }
 
+    public void onDataChanged(){
+        noteItemArrayListFull.clear();
+        noteItemArrayListFull.addAll(noteItemArrayList);
+    }
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -64,6 +71,11 @@ public class ListNoteAdapter extends RecyclerView.Adapter<ListNoteAdapter.ViewHo
     private Filter filter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
+//            if(noteItemArrayListFull.size()!=noteItemArrayList.size()){
+//                noteItemArrayListFull.clear();
+//                noteItemArrayListFull.addAll(noteItemArrayList);
+//            }
+
             ArrayList<NoteItem> filterList = new ArrayList<>();
             if (constraint == null || constraint.length() == 0) {
                 filterList.addAll(noteItemArrayListFull);
@@ -89,7 +101,6 @@ public class ListNoteAdapter extends RecyclerView.Adapter<ListNoteAdapter.ViewHo
             notifyDataSetChanged();
         }
     };
-
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView textViewTitle, textViewTime, textViewContent;
         LinearLayout linearLayoutMenuOption;
@@ -144,10 +155,31 @@ public class ListNoteAdapter extends RecyclerView.Adapter<ListNoteAdapter.ViewHo
             imageViewDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    noteItemArrayList.remove(noteItemArrayList.get(getPosition()));
-                    notifyDataSetChanged();
-                    DataUtils dataUtils = new DataUtils();
-                    dataUtils.saveData(noteItemArrayList, context);
+                    AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
+                    builder1.setMessage("do you want to delete.");
+                    builder1.setCancelable(true);
+
+                    builder1.setPositiveButton(
+                            "Yes",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    noteItemArrayList.remove(noteItemArrayList.get(getPosition()));
+                                    notifyDataSetChanged();
+                                    DataUtils dataUtils = new DataUtils();
+                                    dataUtils.saveData(noteItemArrayList, context);
+                                    dialog.cancel();
+                                }
+                            });
+
+                    builder1.setNegativeButton(
+                            "No",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                }
+                            });
+                    AlertDialog alert11 = builder1.create();
+                    alert11.show();
                 }
             });
 
