@@ -58,6 +58,7 @@ public class ListNoteAdapter extends RecyclerView.Adapter<ListNoteAdapter.ViewHo
         holder.textViewTime.setText(DataUtils.dateFromLong(noteItem.getTimeAndId()));
     }
 
+
     @Override
     public int getItemCount() {
         return noteItemArrayList.size();
@@ -114,32 +115,50 @@ public class ListNoteAdapter extends RecyclerView.Adapter<ListNoteAdapter.ViewHo
             textViewContent = itemView.findViewById(R.id.tv_content);
 
             linearLayoutMenuOption = itemView.findViewById(R.id.ll_menu_option);
-            imageViewClose = itemView.findViewById(R.id.iv_close);
+            imageViewClose = itemView.findViewById(R.id.iv_showmore);
             imageViewEdit = itemView.findViewById(R.id.iv_edit);
             imageViewDelete = itemView.findViewById(R.id.iv_delete);
-
-            itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    linearLayoutMenuOption.setVisibility(View.VISIBLE);
-                    new CountDownTimer(3000, 1000) {
-
-                        public void onTick(long millisUntilFinished) {
-
-                        }
-
-                        public void onFinish() {
-                            linearLayoutMenuOption.setVisibility(View.GONE);
-                        }
-                    }.start();
-                    return true;
-                }
-            });
+//
+//            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+//                @Override
+//                public boolean onLongClick(View v) {
+//                    linearLayoutMenuOption.setVisibility(View.VISIBLE);
+////                    new CountDownTimer(3000, 1000) {
+////
+////                        public void onTick(long millisUntilFinished) {
+////
+////                        }
+////
+////                        public void onFinish() {
+////                            linearLayoutMenuOption.setVisibility(View.GONE);
+////                        }
+////                    }.start();
+//                    return true;
+//                }
+//            });
 
             imageViewClose.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    linearLayoutMenuOption.setVisibility(View.GONE);
+                    if(linearLayoutMenuOption.getVisibility()==View.VISIBLE) {
+                        linearLayoutMenuOption.setVisibility(View.GONE);
+                        imageViewClose.setRotation(0);
+
+                    }else {
+                        linearLayoutMenuOption.setVisibility(View.VISIBLE);
+                        imageViewClose.setRotation(180);
+                        new CountDownTimer(3000, 1000) {
+
+                            public void onTick(long millisUntilFinished) {
+
+                            }
+
+                            public void onFinish() {
+                                imageViewClose.setRotation(0);
+                                linearLayoutMenuOption.setVisibility(View.GONE);
+                            }
+                        }.start();
+                    }
                 }
             });
 

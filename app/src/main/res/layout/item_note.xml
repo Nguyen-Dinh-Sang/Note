@@ -4,15 +4,17 @@
     android:layout_marginLeft="@dimen/dp5"
     android:layout_marginRight="@dimen/dp5"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:elevation="@dimen/dp5"
     app:cardCornerRadius="@dimen/dp5"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <RelativeLayout
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
             android:textColor="@color/colorBlack"
             android:textStyle="bold"
             android:textSize="@dimen/dp18"
@@ -27,44 +29,59 @@
             android:maxWidth="@dimen/dp200">
         </TextView>
         <TextView
+            android:layout_marginRight="@dimen/dp10"
+            android:layout_marginLeft="@dimen/dp10"
+            app:layout_constraintRight_toLeftOf="@+id/iv_showmore"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_title"
             android:textColor="@color/colorBlack"
             android:textStyle="normal"
             android:textSize="@dimen/dp15"
             android:text="Content: đây là content test thử xem nó tới đâu rồi ok ok ok ok ok ok ok"
             android:id="@+id/tv_content"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="1"
             android:layout_marginTop="@dimen/dp7"
-            android:layout_marginLeft="@dimen/dp10"
-            android:layout_below="@id/tv_title"
-            android:layout_marginRight="@dimen/dp15"
             android:layout_marginBottom="@dimen/dp7">
         </TextView>
+        <ImageView
+            android:layout_marginRight="@dimen/dp10"
+            android:id="@+id/iv_showmore"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/tv_content"
+            app:layout_constraintBottom_toBottomOf="@id/tv_content"
+            app:layout_constraintTop_toTopOf="@id/tv_content"
+            android:src="@drawable/ic_down_arrow"
+            android:layout_width="@dimen/dp25"
+            android:layout_height="@dimen/dp25"/>
         <TextView
+            app:layout_constraintLeft_toRightOf="@id/tv_title"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/tv_title"
+            app:layout_constraintTop_toTopOf="@id/tv_title"
             android:textColor="@color/colorBlack"
             android:textStyle="normal"
-            android:textSize="@dimen/dp18"
+            android:textSize="@dimen/dp10"
             android:text="Time đây là time"
             android:id="@+id/tv_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="1"
-            android:layout_marginTop="@dimen/dp8"
             android:layout_alignParentRight="true"
-            android:maxWidth="@dimen/dp110"
-            android:layout_marginRight="@dimen/dp15">
+            android:maxWidth="@dimen/dp110">
         </TextView>
         <LinearLayout
             android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/tv_content"
             android:id="@+id/ll_menu_option"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_content"
-            android:weightSum="3"
+            android:weightSum="2"
             android:paddingBottom="@dimen/dp18"
             android:paddingTop="@dimen/dp18">
             <ImageView
@@ -83,14 +100,7 @@
                 android:src="@drawable/ic_edit"
                 android:background="@null">
             </ImageView>
-            <ImageView
-                android:id="@+id/iv_close"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/dp25"
-                android:layout_weight="1"
-                android:src="@drawable/ic_close"
-                android:background="@null">
-            </ImageView>
+
         </LinearLayout>
-    </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
