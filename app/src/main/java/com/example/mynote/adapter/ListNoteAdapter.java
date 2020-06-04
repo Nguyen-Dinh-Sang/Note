@@ -136,7 +136,7 @@ public class ListNoteAdapter extends RecyclerView.Adapter<ListNoteAdapter.ViewHo
 //                    return true;
 //                }
 //            });
-
+ 
             imageViewClose.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
