@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.mynote.R;
 import com.example.mynote.activity.Main2Activity;
 import com.example.mynote.activity.MainActivity;
+import com.example.mynote.activity.NoteActivity;
 import com.example.mynote.model.NoteItem;
 import com.example.mynote.utils.DataUtils;
 
@@ -165,8 +166,8 @@ public class ListNoteAdapter extends RecyclerView.Adapter<ListNoteAdapter.ViewHo
             imageViewEdit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context, Main2Activity.class);
-                    intent.putExtra("edit", noteItemArrayList.get(getPosition()));
+                    Intent intent = new Intent(context, NoteActivity.class);
+                    intent.putExtra("edit", noteItemArrayList.get(getAdapterPosition()));
                     ((Activity) context).startActivityForResult(intent, 56789);
                 }
             });
@@ -205,8 +206,8 @@ public class ListNoteAdapter extends RecyclerView.Adapter<ListNoteAdapter.ViewHo
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context, Main2Activity.class);
-                    intent.putExtra("detail", noteItemArrayList.get(getPosition()));
+                    Intent intent = new Intent(context, NoteActivity.class);
+                    intent.putExtra("detail", noteItemArrayList.get(getAdapterPosition()));
                     ((Activity) context).startActivityForResult(intent, 56789);
                 }
             });

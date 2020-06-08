@@ -18,11 +18,14 @@ import com.example.mynote.R;
 import com.example.mynote.adapter.ListNoteAdapter;
 import com.example.mynote.model.NoteItem;
 import com.example.mynote.utils.DataUtils;
+import com.example.mynote.view.DialogChoose;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity{
+    private static final int CREATENOTE = 12345;
     private ArrayList<NoteItem> noteItemArrayList = new ArrayList<>();
     private RecyclerView recyclerViewNote;
     private FloatingActionButton floatingActionButtonCreateNote;
@@ -47,9 +50,22 @@ public class MainActivity extends AppCompatActivity{
         floatingActionButtonCreateNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, Main2Activity.class);
-                intent.putExtra("create", "Create");
-                startActivityForResult(intent, 12345);
+                List<String> options = new ArrayList<>();
+                options.add("Normal note");
+                options.add("Draw note");
+                DialogChoose.getInstance().showDialog(options,"Select Mode",MainActivity.this, new DialogChoose.DialogChooseListener() {
+                    @Override
+                    public void onItemSelected(String item) {
+                        Intent intent = new Intent(MainActivity.this, NoteActivity.class);
+                        intent.putExtra("create", item);
+                        startActivityForResult(intent, CREATENOTE);
+                    }
+
+                    @Override
+                    public void onDismiss() {
+
+                    }
+                });
             }
         });
     }
@@ -93,7 +109,7 @@ public class MainActivity extends AppCompatActivity{
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
-            case 12345: {
+            case CREATENOTE: {
                 if (data.getSerializableExtra("create") != null) {
                     NoteItem noteItem = (NoteItem) data.getSerializableExtra("create");
                     noteItemArrayList.add(noteItem);
