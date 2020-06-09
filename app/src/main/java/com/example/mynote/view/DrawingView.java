@@ -29,6 +29,7 @@ public class DrawingView extends androidx.appcompat.widget.AppCompatImageView {
         private Paint mPaint;
         private int strokeSize=12;
         private boolean canDraw=true;
+    private int currentcolor=Color.BLACK;
 
 
     public DrawingView(Context c) {
@@ -46,7 +47,7 @@ public class DrawingView extends androidx.appcompat.widget.AppCompatImageView {
         circlePaint = new Paint();
         circlePath = new Path();
         circlePaint.setAntiAlias(true);
-        circlePaint.setColor(Color.BLUE);
+        circlePaint.setColor(currentcolor);
         circlePaint.setStyle(Paint.Style.STROKE);
         circlePaint.setStrokeJoin(Paint.Join.MITER);
         circlePaint.setStrokeWidth(4f);
@@ -54,7 +55,7 @@ public class DrawingView extends androidx.appcompat.widget.AppCompatImageView {
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
         mPaint.setDither(true);
-        mPaint.setColor(Color.GREEN);
+        mPaint.setColor(currentcolor);
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setStrokeJoin(Paint.Join.ROUND);
         mPaint.setStrokeCap(Paint.Cap.ROUND);
@@ -73,6 +74,7 @@ public class DrawingView extends androidx.appcompat.widget.AppCompatImageView {
 
     public void setStrokeWidth(int size){
             this.strokeSize=size;
+        initDrawingView();
         }
         @Override
         protected void onSizeChanged(int w, int h, int oldw, int oldh) {
@@ -146,4 +148,11 @@ public class DrawingView extends androidx.appcompat.widget.AppCompatImageView {
             }
             return true;
         }
+
+
+    public void setBrushColor(int parseColor)
+    {
+            currentcolor=parseColor;
+            initDrawingView();
     }
+}

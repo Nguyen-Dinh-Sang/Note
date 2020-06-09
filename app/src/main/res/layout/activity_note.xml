@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.Main2Activity"
     android:background="@color/colorPink">
     <androidx.cardview.widget.CardView
         android:id="@+id/cv_main2"
@@ -72,6 +71,7 @@
         </EditText>
     </androidx.cardview.widget.CardView>
     <androidx.cardview.widget.CardView
+        android:layout_above="@id/toolbar"
         android:id="@+id/cv_note"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -81,20 +81,25 @@
         android:layout_marginLeft="@dimen/dp5"
         android:layout_marginRight="@dimen/dp5"
         android:layout_marginBottom="@dimen/dp5">
-        <EditText
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/ed_content"
-            android:hint="Add content"
-            android:textSize="@dimen/dp15"
-            android:background="@android:color/transparent"
-            android:layout_marginRight="@dimen/dp5"
-            android:layout_marginTop="@dimen/dp5"
-            android:layout_marginLeft="@dimen/dp5">
-        </EditText>
+            android:layout_height="match_parent">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/ed_content"
+                android:hint="Add content"
+                android:textSize="@dimen/dp15"
+                android:background="@android:color/transparent"
+                android:layout_marginRight="@dimen/dp5"
+                android:layout_marginTop="@dimen/dp5"
+                android:layout_marginLeft="@dimen/dp5">
+            </EditText>
+        </ScrollView>
     </androidx.cardview.widget.CardView>
 
     <com.example.mynote.view.DrawingView
+        android:layout_above="@id/toolbar"
         android:background="@android:color/white"
         android:id="@+id/dv_note"
         android:layout_width="match_parent"
@@ -105,4 +110,13 @@
         android:layout_marginLeft="@dimen/dp5"
         android:layout_marginRight="@dimen/dp5"
         android:layout_marginBottom="@dimen/dp5"/>
+    <include
+        android:visibility="gone"
+        android:layout_marginLeft="@dimen/dp5"
+        android:layout_marginRight="@dimen/dp5"
+        android:id="@+id/toolbar"
+        android:layout_alignParentBottom="true"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/toolbar_edit" />
 </RelativeLayout>

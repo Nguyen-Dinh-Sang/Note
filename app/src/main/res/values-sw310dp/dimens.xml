@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="floatingActionButtonMargin">13dp</dimen>
-    <dimen name="floatingActionButtonElevation">5dp</dimen>
-    <dimen name="dp5">4dp</dimen>
-    <dimen name="dp7">6dp</dimen>
-    <dimen name="dp8">6dp</dimen>
-    <dimen name="dp10">8dp</dimen>
-    <dimen name="dp15">12dp</dimen>
-    <dimen name="dp18">15dp</dimen>
-    <dimen name="dp25">21dp</dimen>
-    <dimen name="dp30">25dp</dimen>
-    <dimen name="dp110">94dp</dimen>
-    <dimen name="dp200">172dp</dimen>
+    <dimen name="floatingActionButtonMargin">11dp</dimen>
+    <dimen name="floatingActionButtonElevation">4dp</dimen>
+    <dimen name="dp5">3dp</dimen>
+    <dimen name="dp7">5dp</dimen>
+    <dimen name="dp8">5dp</dimen>
+    <dimen name="dp10">7dp</dimen>
+    <dimen name="dp15">11dp</dimen>
+    <dimen name="dp18">13dp</dimen>
+    <dimen name="dp25">18dp</dimen>
+    <dimen name="dp30">22dp</dimen>
+    <dimen name="dp110">81dp</dimen>
+    <dimen name="dp200">147dp</dimen>
+    <dimen name="dp170">125dp</dimen>
+    <dimen name="sp12">8sp</dimen>
+    <dimen name="dp2">1dp</dimen>
+    <dimen name="dp1">0dp</dimen>
+    <dimen name="sp10">7sp</dimen>
+    <dimen name="dp160">118dp</dimen>
+    <dimen name="dp44">32dp</dimen>
+    <dimen name="dp40">29dp</dimen>
 </resources>

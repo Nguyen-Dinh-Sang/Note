@@ -3,11 +3,13 @@ package com.example.mynote.activity;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -75,9 +77,8 @@ public class MainActivity extends AppCompatActivity{
             noteItemArrayList.addAll(dataUtils.getData(this));
         }
         listNoteAdapter = new ListNoteAdapter(this, noteItemArrayList);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerViewNote.setLayoutManager(linearLayoutManager);
+        GridLayoutManager manager = new GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false);
+        recyclerViewNote.setLayoutManager(manager);
         recyclerViewNote.setAdapter(listNoteAdapter);
     }
 
@@ -124,8 +125,14 @@ public class MainActivity extends AppCompatActivity{
                     NoteItem noteItem = (NoteItem) data.getSerializableExtra("edit");
                     for (int i = 0; i < noteItemArrayList.size(); i++) {
                         if (noteItemArrayList.get(i).getTimeAndId() == noteItem.getTimeAndId()) {
+                            Log.d("nhatnhat", "onActivityResult: "+noteItem.getType());
                             noteItemArrayList.get(i).setTitle(noteItem.getTitle());
                             noteItemArrayList.get(i).setContent(noteItem.getContent());
+                            noteItemArrayList.get(i).setType(noteItem.getType());
+                            noteItemArrayList.get(i).setContentTextColor(noteItem.getContentTextColor());
+                            Log.d("nhatnhat", "onActivityResult: "+ noteItemArrayList.get(i).getContentTextSize()+"/"+noteItem.getContentTextSize());
+
+                            noteItemArrayList.get(i).setContentTextSize(noteItem.getContentTextSize());
                             listNoteAdapter.notifyDataSetChanged();
                             dataUtils.saveData(noteItemArrayList, this);
                             break;

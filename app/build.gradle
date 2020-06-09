@@ -39,4 +39,7 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
 
     implementation 'com.google.android.material:material:1.2.0-alpha06'
+
+    //Color picker
+    implementation 'com.github.yukuku:ambilwarna:2.0.1'
 }

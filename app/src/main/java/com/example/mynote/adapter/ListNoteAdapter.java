@@ -5,22 +5,22 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.CountDownTimer;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mynote.R;
-import com.example.mynote.activity.Main2Activity;
-import com.example.mynote.activity.MainActivity;
 import com.example.mynote.activity.NoteActivity;
 import com.example.mynote.model.NoteItem;
 import com.example.mynote.utils.DataUtils;
@@ -47,14 +47,25 @@ public class ListNoteAdapter extends RecyclerView.Adapter<ListNoteAdapter.ViewHo
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.item_note, parent, false);
+        View view = inflater.inflate(R.layout.item_note_new, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         NoteItem noteItem = noteItemArrayList.get(position);
-        holder.textViewContent.setText(noteItem.getContent());
+        Log.d("nhatnhat", "onBindViewHolder: "+noteItem.getTitle()+"/"+noteItem.getType().toString());
+        if(noteItem.getType()== NoteItem.TYPE.DrawNote){
+            holder.textViewContent.setVisibility(View.GONE);
+           holder.imageViewContent.setVisibility(View.VISIBLE);
+            byte[] item = Base64.decode(noteItem.getContent(),Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(item, 0, item.length);
+            holder.imageViewContent.setImageBitmap(bitmap);
+        }else {
+            holder.textViewContent.setText(noteItem.getContent());
+            holder.textViewContent.setTextColor(noteItem.getContentTextColor());
+            holder.textViewContent.setTextSize(noteItem.getContentTextSize());
+        }
         holder.textViewTitle.setText(noteItem.getTitle());
         holder.textViewTime.setText(DataUtils.dateFromLong(noteItem.getTimeAndId()));
     }
@@ -105,8 +116,7 @@ public class ListNoteAdapter extends RecyclerView.Adapter<ListNoteAdapter.ViewHo
     };
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView textViewTitle, textViewTime, textViewContent;
-        LinearLayout linearLayoutMenuOption;
-        ImageView imageViewEdit, imageViewDelete, imageViewClose;
+        ImageView imageViewDelete,imageViewContent;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -114,10 +124,7 @@ public class ListNoteAdapter extends RecyclerView.Adapter<ListNoteAdapter.ViewHo
             textViewTitle = itemView.findViewById(R.id.tv_title);
             textViewTime = itemView.findViewById(R.id.tv_time);
             textViewContent = itemView.findViewById(R.id.tv_content);
-
-            linearLayoutMenuOption = itemView.findViewById(R.id.ll_menu_option);
-            imageViewClose = itemView.findViewById(R.id.iv_showmore);
-            imageViewEdit = itemView.findViewById(R.id.iv_edit);
+            imageViewContent =itemView.findViewById(R.id.iv_content);
             imageViewDelete = itemView.findViewById(R.id.iv_delete);
 //
 //            itemView.setOnLongClickListener(new View.OnLongClickListener() {
@@ -138,39 +145,8 @@ public class ListNoteAdapter extends RecyclerView.Adapter<ListNoteAdapter.ViewHo
 //                }
 //            });
  
-            imageViewClose.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(linearLayoutMenuOption.getVisibility()==View.VISIBLE) {
-                        linearLayoutMenuOption.setVisibility(View.GONE);
-                        imageViewClose.setRotation(0);
 
-                    }else {
-                        linearLayoutMenuOption.setVisibility(View.VISIBLE);
-                        imageViewClose.setRotation(180);
-                        new CountDownTimer(3000, 1000) {
 
-                            public void onTick(long millisUntilFinished) {
-
-                            }
-
-                            public void onFinish() {
-                                imageViewClose.setRotation(0);
-                                linearLayoutMenuOption.setVisibility(View.GONE);
-                            }
-                        }.start();
-                    }
-                }
-            });
-
-            imageViewEdit.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(context, NoteActivity.class);
-                    intent.putExtra("edit", noteItemArrayList.get(getAdapterPosition()));
-                    ((Activity) context).startActivityForResult(intent, 56789);
-                }
-            });
 
             imageViewDelete.setOnClickListener(new View.OnClickListener() {
                 @Override

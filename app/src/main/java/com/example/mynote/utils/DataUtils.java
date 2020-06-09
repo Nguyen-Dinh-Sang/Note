@@ -1,6 +1,7 @@
 package com.example.mynote.utils;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.util.Xml;
 import android.widget.Filterable;
@@ -76,6 +77,9 @@ public class DataUtils {
                 String title = "";
                 String timeAndID = "";
                 String content = "";
+                String color= Color.BLACK+"";
+                String size =12+"";
+                NoteItem.TYPE type = NoteItem.TYPE.NormalNote;
 
                 for (int j = 0; j < nodeList.getLength(); j++) {
                     Node noteCon =nodeList.item(j);
@@ -90,8 +94,17 @@ public class DataUtils {
                     if (noteCon.getNodeName().equals("content")) {
                         content = noteCon.getTextContent();
                     }
+                    if (noteCon.getNodeName().equals("color")) {
+                        color = noteCon.getTextContent();
+                    }
+                    if (noteCon.getNodeName().equals("size")) {
+                        size = noteCon.getTextContent();
+                    }
+                    if (noteCon.getNodeName().equals("type")) {
+                        type = NoteItem.TYPE.valueOf(noteCon.getTextContent());
+                    }
                 }
-                NoteItem item = new NoteItem(Long.parseLong(timeAndID), title, content);
+                NoteItem item = new NoteItem(Long.parseLong(timeAndID), title, content,Integer.parseInt(color),Float.parseFloat(size),type);
 
                 noteItemArrayList.add(item);
             }
@@ -139,6 +152,18 @@ public class DataUtils {
                 xmlSerializer.startTag(null,"content");
                 xmlSerializer.text(item.getContent());
                 xmlSerializer.endTag(null, "content");
+
+                xmlSerializer.startTag(null,"color");
+                xmlSerializer.text(item.getContentTextColor()+"");
+                xmlSerializer.endTag(null, "color");
+
+                xmlSerializer.startTag(null,"size");
+                xmlSerializer.text(item.getContentTextSize()+"");
+                xmlSerializer.endTag(null, "size");
+
+                xmlSerializer.startTag(null,"type");
+                xmlSerializer.text(item.getType().toString());
+                xmlSerializer.endTag(null, "type");
 
                 xmlSerializer.endTag(null, "note");
             }

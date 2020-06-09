@@ -7,8 +7,27 @@ public class NoteItem implements Serializable {
     private long timeAndId;
     private String title;
     private String content;
+    private float contentTextSize;
+    private int contentTextColor;
     public enum TYPE {NormalNote,DrawNote};
     private TYPE type =TYPE.NormalNote;
+
+
+    public float getContentTextSize() {
+        return contentTextSize;
+    }
+
+    public void setContentTextSize(float contentTextSize) {
+        this.contentTextSize = contentTextSize;
+    }
+
+    public int getContentTextColor() {
+        return contentTextColor;
+    }
+
+    public void setContentTextColor(int contentTextColor) {
+        this.contentTextColor = contentTextColor;
+    }
 
     public long getTimeAndId() {
         return timeAndId;
@@ -42,15 +61,13 @@ public class NoteItem implements Serializable {
         this.content = content;
     }
 
-    public NoteItem(long timeAndId, String title, String content,TYPE type) {
+    public NoteItem(long timeAndId, String title, String content,int contentTextColor,float contentTextSize,TYPE type) {
         this.timeAndId = timeAndId;
         this.title = title;
         this.content = content;
         this.type = type;
+        this.contentTextColor=contentTextColor;
+        this.contentTextSize=contentTextSize;
     }
-    public NoteItem(long timeAndId, String title, String content) {
-        this.timeAndId = timeAndId;
-        this.title = title;
-        this.content = content;
-    }
+
 }
